@@ -1,12 +1,11 @@
-import pymongo
-import ast
-import sys
-import json
 import paho.mqtt.client as mqtt
+import json
+import sys
+import validaciones as v
 
-# Usar un archivo .json como argumento
-#with open(sys.argv[1]) as f:
- #   data = json.load(f)
+# Usar un archivo .json (rangos) como argumento
+with open(sys.argv[1]) as f:
+    rangos = json.load(f)
 
 # Visualiza los registros que se realizan
 def on_log(client, userdata, level, buf):
@@ -17,21 +16,18 @@ def on_connect(client, userdata, flags, rc):
     #connected
     client.subscribe(topic='prueba', qos=2)
 
-# Recibe publicaciones del topico subscrito, Inserta en bd
-# Convierte el payload a dict
+# Recibe publicaciones del topico subscrito
+# Validar el mensaje recibido de mqtt
+# Publica al topico del indexador
 def on_message(client, userdata, message):
-    collection.insert_one(ast.literal_eval(message.payload))
-
-# Define un cliente Mongo
-mongoClient = pymongo.MongoClient('mongodb://mongoserver:27017/')
-db = mongoClient.project
-collection = db.measurements
-#collection.insert_one(data)
+    print(message.payload)
+    v.validar(message.payload, rangos)
+    #client.publish("prueba2", "Hola")
 
 # Define un cliente MQTT
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 #client.on_log = on_log
-client.connect('mqttserver', 1883)
+client.connect('127.0.0.1', 1883)
 client.loop_forever()
