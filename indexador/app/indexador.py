@@ -15,7 +15,7 @@ def on_log(client, userdata, level, buf):
 # Establece conexion al broker MQTT, Subscribirse en el topico especificado
 def on_connect(client, userdata, flags, rc):
     #connected
-    client.subscribe(topic='prueba', qos=2)
+    client.subscribe(topic='jsonValidado', qos=2)
 
 # Recibe publicaciones del topico subscrito, Inserta en bd
 # Convierte el payload a dict
