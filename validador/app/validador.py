@@ -14,20 +14,19 @@ def on_log(client, userdata, level, buf):
 # Establece conexion al broker MQTT, Subscribirse en el topico especificado
 def on_connect(client, userdata, flags, rc):
     #connected
-    client.subscribe(topic='prueba', qos=2)
+    client.subscribe(topic='sensores', qos=2)
 
 # Recibe publicaciones del topico subscrito
 # Validar el mensaje recibido de mqtt
 # Publica al topico del indexador
 def on_message(client, userdata, message):
-    print(message.payload)
-    v.validar(message.payload, rangos)
-    #client.publish("prueba2", "Hola")
+    validado = v.validar(message.payload, rangos)
+    client.publish("jsonValidado", validado)
 
 # Define un cliente MQTT
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 #client.on_log = on_log
-client.connect('127.0.0.1', 1883)
+client.connect('mqttserver', 1883)
 client.loop_forever()
