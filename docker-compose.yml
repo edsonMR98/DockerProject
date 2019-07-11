@@ -25,3 +25,10 @@ services:
       depends_on:
          - mongoserver
          - mqttserver
+   validador:
+      container_name: validadorC
+      build:
+         context: ./validador
+      image: valid
+      depends_on:
+         - mqttserver
