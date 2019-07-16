@@ -17,18 +17,11 @@ services:
       expose:
          - "27017"            
       restart: always
-   indexador:
-      container_name: indexC
+   verificador:
+      container_name: verificadorC
       build:
-         context: ./indexador
-      image: index
+         context: ./verificador
+      image: verificador
       depends_on:
+         - mqttserver
          - mongoserver
-         - mqttserver
-   validador:
-      container_name: validadorC
-      build:
-         context: ./validador
-      image: valid
-      depends_on:
-         - mqttserver
