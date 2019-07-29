@@ -32,10 +32,11 @@ def banderaLimpieza(data, rangos):
         if (d["valor"] == "null") or (d["valor"] == "NULL") or (d["valor"] == "Null"):
             d["bLimpieza"] = "ND"
         else:
-            valor = int(d["valor"])
-            if (valor >= rangos["limites"][d["idParametro"]]["min"]) and (valor <= rangos["limites"][d["idParametro"]]["max"]) and (valor >= 0):
-                d["bLimpieza"] = "VA"
-            elif (valor >= rangos["limites"][d["idParametro"]]["min"]) and (valor <= rangos["limites"][d["idParametro"]]["max"]) and (valor < 0):
-                d["bLimpieza"] = "VZ"
-            elif (valor < rangos["limites"][d["idParametro"]]["min"]) or (valor > rangos["limites"][d["idParametro"]]["max"]):
-                d["bLimpieza"] = "IR"
+            valor = float(d["valor"])
+            if d["idParametro"] in rangos["limites"]:
+                if (valor >= rangos["limites"][d["idParametro"]]["min"]) and (valor <= rangos["limites"][d["idParametro"]]["max"]) and (valor >= 0):
+                    d["bLimpieza"] = "VA"
+                elif (valor >= rangos["limites"][d["idParametro"]]["min"]) and (valor <= rangos["limites"][d["idParametro"]]["max"]) and (valor < 0):
+                    d["bLimpieza"] = "VZ"
+                elif (valor < rangos["limites"][d["idParametro"]]["min"]) or (valor > rangos["limites"][d["idParametro"]]["max"]):
+                    d["bLimpieza"] = "IR"
