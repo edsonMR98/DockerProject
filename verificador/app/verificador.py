@@ -24,10 +24,11 @@ def on_connect(client, userdata, flags, rc):
 # Inserta en base de datos
 def on_message(client, userdata, message):
     verificado = c.verificar(message.payload, rangos)
+    print(verificado)
     collection.insert_one(ast.literal_eval(verificado))
 
 # Define un cliente Mongo
-mongoClient = pymongo.MongoClient('mongodb://mongoserver:27017/')
+mongoClient = pymongo.MongoClient('mongodb://mongodb:27017/')
 db = mongoClient.project
 collection = db.measurements
 
@@ -35,6 +36,6 @@ collection = db.measurements
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-#client.on_log = on_log
+client.on_log = on_log
 client.connect('mqttserver', 1883)
 client.loop_forever()

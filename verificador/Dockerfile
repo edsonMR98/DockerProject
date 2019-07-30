@@ -8,4 +8,4 @@ RUN pip install paho-mqtt
 RUN apt-get install -y nano
 COPY \app\ /home/code
 WORKDIR /home/code/
-CMD python verificador.py rangos.json
+CMD python -u verificador.py rangos.json
