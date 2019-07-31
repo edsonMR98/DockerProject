@@ -4,6 +4,8 @@ import json
 import sys
 import ast
 import criterios as c
+import datetime
+
 
 # Usar un archivo .json (rangos) como argumento
 with open(sys.argv[1]) as f:
@@ -23,9 +25,21 @@ def on_connect(client, userdata, flags, rc):
 # Verifica el mensaje recibido de mqtt
 # Inserta en base de datos
 def on_message(client, userdata, message):
+    # varificar datos
     verificado = c.verificar(message.payload, rangos)
+
+    #formato de datetime
+    dateStr = verificado['dateTime']
+    dateFormat = datetime.datetime.strptime(dateStr, "%Y-%m-%d %H:%M:%S")
+    
     print(verificado)
-    collection.insert_one(ast.literal_eval(verificado))
+    
+    #collection.insert_one(ast.literal_eval(verificado))
+    collection.insert({
+        "idStation": verificado['idStation'],
+        "dateTime": dateFormat,
+        "mediciones": verificado['mediciones']
+    })
 
 # Define un cliente Mongo
 mongoClient = pymongo.MongoClient('mongodb://mongodb:27017/')

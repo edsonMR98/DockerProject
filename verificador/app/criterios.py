@@ -6,11 +6,13 @@ def verificar(m, r):
         r: Json usado para tomar las referencias de las mediciones\n
         return: Mensaje str (json) validado """
     data = toDict(m)
+
     rangos = r
 
     banderaLimpieza(data, rangos)
     
-    return toStr(data)
+    return data
+    #return toStr(data)
     
 def toDict(fileBytes):
     """ Convertir un dato tipo bytes to dict.\n
