@@ -4,7 +4,6 @@ import time
 import datetime
 import csv
 
-
 # Visualiza los registros que se realizan
 def on_log(client, userdata, level, buf):
     print("log: ",buf)
@@ -14,16 +13,14 @@ def on_connect(client, userdata, flags, rc):
     #connected
     print("Conectado")
     client.subscribe(topic='sensores2', qos=2)
-
     
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_log = on_log
 client.connect('mqttserver', 1883)
 
-
 with open('dataset.csv') as csvFile:
-    csvReader = csv.DictReader(csvFile)
+    csvReader = csv.DictReader(csvFile) # Read csvFile and convert it to rows Dict
     tempHour = ''
     for csvRow in csvReader:
         data = {}
