@@ -1,11 +1,22 @@
 def Linear(AQIhigh, AQIlow, Conchigh, Conclow, Concentration):
+    """  (Que hace?)
+    AQIhigh:
+    AQIlow:
+    Conchigh:
+    Conclow:
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     a = ((Conc-Conclow) / (Conchigh-Conclow)) * (AQIhigh - AQIlow) + AQIlow
     linear=Math.round(a)
     return linear
 
-
 def AQIPM25(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c = (Math.floor(10 * Conc)) / 10
@@ -27,9 +38,11 @@ def AQIPM25(Concentration):
         AQI = -999
     return AQI
 
-
-
 def AQIPM10(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c=Math.floor(Conc)
@@ -51,8 +64,11 @@ def AQIPM10(Concentration):
         AQI = -999
     return AQI
 
-
 def AQICO(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c = (Math.floor(10 * Conc)) / 10
@@ -74,8 +90,11 @@ def AQICO(Concentration):
         AQI = -999
     return AQI
 
-
 def AQISO21hr(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c=Math.floor(Conc)
@@ -93,8 +112,11 @@ def AQISO21hr(Concentration):
         AQI = -999
     return AQI
 
-
 def AQISO224hr(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c=Math.floor(Conc)
@@ -110,8 +132,11 @@ def AQISO224hr(Concentration):
         AQI = -99
     return AQI
 
-
 def AQIOzone8hr(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c = (Math.floor(Conc))/1000
@@ -131,9 +156,11 @@ def AQIOzone8hr(Concentration):
         AQI = -99
     return AQI
 
-
-
 def AQIOzone1hr(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c = (Math.floor(Conc))/1000
@@ -153,8 +180,11 @@ def AQIOzone1hr(Concentration):
         AQI = -99
     return AQI
 
-
 def AQINO2(Concentration):
+    """ (Que hace?)
+    Concentration:
+    return:
+    """
     Conc = float(Concentration)
     AQI = 0
     c = (Math.floor(Conc))/1000
@@ -176,8 +206,11 @@ def AQINO2(Concentration):
         AQI = -99
     return AQI
 
-
 def AQICategory(AQIndex):
+    """ (Que hace?)
+    AQIndex:
+    return:
+    """
     AQI = float(AQIndex)
     AQICategory = ""
     if (AQI <= 50):

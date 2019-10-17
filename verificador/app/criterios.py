@@ -6,9 +6,7 @@ def verificar(m, r):
         r: Json usado para tomar las referencias de las mediciones\n
         return: Mensaje str (json) validado """
     data = toDict(m)
-
     rangos = r
-
     banderaLimpieza(data, rangos)
     
     return data
@@ -28,6 +26,7 @@ def toStr(fileDict):
 
 def banderaLimpieza(data, rangos):
     """ Agrega la bandera de limpieza a cada medicion.\n
+    Compara el valor medido con los rangos establecidos en rangos.json.\n
     data: Mensaje\n
     rangos: Json usado para tomar las referencias de las mediciones"""
     for d in data["mediciones"]:        
