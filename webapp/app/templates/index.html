@@ -17,6 +17,9 @@
     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
     crossorigin=""></script>
 
+    <!--Chart.js-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2/dist/Chart.min.js"></script>
+
 </head>
 <body>
     <header>
@@ -24,7 +27,21 @@
     </header>
     <section id="main">
         <article id="map"></article>
-        <article id="info"></article>
+        <article id="info">
+            <header id="header">
+                <span id="headerDate"></span>
+                <span id="headerStationName"></span>
+                <div id="buttons"></div>
+            </header>
+            <div id="stats">
+                <span id="statsCurrent"></span>
+                <span id="statsMax"></span>
+                <span id="statsMin"></span>
+                <span id="statsAvg"></span>
+
+            </div>
+            <div id="charts"></div>
+        </article>
     </section>
     
     <script src="{{ url_for('static', filename='main.js') }}"></script>
