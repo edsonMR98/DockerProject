@@ -14,6 +14,9 @@ mongo = PyMongo(app)
 #
 
 def getStations():
+    """ Realiza una consulta en la DB stations y todos los documentos obtenidos\n
+    se agregan a una List.\n
+    return: List con todos los documentos obtenidos."""
     result = mongo.db.stations.find()
     documents = []
     for document in result:
@@ -27,8 +30,10 @@ def getStations():
         })
     return documents
 
-
 def getParameters():
+    """ Realiza una consulta en la DB parameters y todos los documentos obtenidos\n
+    se agregan a una List.\n
+    return: List con todos los documentos obtenidos."""
     result = mongo.db.parameters.find()
     documents = []
     for document in result:
@@ -39,8 +44,10 @@ def getParameters():
         })
     return documents
 
-
 def getAllMeasurements():
+    """ Realiza una consulta en la DB measurements y todos los documentos obtenidos\n
+    se agregan a una List.\n
+    return: List con todos los documentos obtenidos."""
     result = mongo.db.measurements.find()
     documents = []
     for document in result:
@@ -51,9 +58,12 @@ def getAllMeasurements():
         })
     return documents
 
-
 def getMeasurementsByDate(start, end):
-    """Params start and end are Datetime objects"""
+    """ Realiza una consulta filtrada en la DB measurements y todos los documentos\n
+    obtenidos se agregan a una List.\n
+    start (Datetime object): Inicio de la consulta
+    end (Datetime object): Fin de la consulta
+    return: List con todos los documentos obtenidos."""
     result = mongo.db.measurements.find({
         'dateTime': {
             '$gte': start,
@@ -69,9 +79,10 @@ def getMeasurementsByDate(start, end):
         })
     return documents
 
-
 def getData():
-
+    """ Realiza la invocacion de las funciones anteriores.\n
+    Obteniendo asi el conjunto de los diferentes List.\n
+    return: Dict con todos los List obtenidos."""
     #Get stations
     stations = getStations()
 
@@ -121,8 +132,6 @@ def data():
     else:
         abort(404, message="Unknown endpoint!")
 
-
-
 @app.route('/stations', methods=['GET'])
 def stations():
     if request.method == 'GET':
@@ -131,7 +140,6 @@ def stations():
     else:
         abort(404, message="Unknown endpoint!")
 
-
 @app.route('/parameters', methods=['GET'])
 def parameters():
     if request.method == 'GET':
@@ -139,7 +147,6 @@ def parameters():
         return jsonify(parameters)
     else:
         abort(404, message="Unknown endpoint!")
-
 
 @app.route('/measurements', methods=['GET'])
 def getMeasurements():
@@ -156,8 +163,6 @@ def getMeasurements():
             return jsonify(measurements)
     else:
         abort(404, message="Unknown endpoint!")
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
