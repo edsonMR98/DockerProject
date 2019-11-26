@@ -5,25 +5,28 @@ import sys
 import ast
 import criterios as c
 import datetime
+# Importar las librerias y scripts necesarios
 
 
-# Usar un archivo .json (rangos) como argumento
+# Usar un archivo .json (./rangos,json) como argumento
+# Convierte un json en un objeto de Python
 with open(sys.argv[1]) as f:
     rangos = json.load(f)
 
-# Visualiza los registros que se realizan
+# Visualiza los registros y todo lo que se realiza
 def on_log(client, userdata, level, buf):
     print("log: ",buf)
 
-# Establece conexion al broker MQTT, Subscribirse en el topico especificado
+# Establece conexion al cliente del broker MQTT
+# Subscribirse en el topico especificado (sensores2)
 def on_connect(client, userdata, flags, rc):
     #connected
     print("Conectado")
     client.subscribe(topic='sensores2', qos=2)
 
-# Recibe publicaciones del topico subscrito
-# Verifica el mensaje recibido de mqtt
-# Inserta en base de datos
+# Recibe publicaciones del topico subscrito (sensores2)
+# Verifica el mensaje recibido del broker mqtt con la funcion verificar (criterios.py)
+# Inserta en base de datos de mongo
 def on_message(client, userdata, message):
     # varificar datos
     verificado = c.verificar(message.payload, rangos)
@@ -41,7 +44,7 @@ def on_message(client, userdata, message):
         "mediciones": verificado['mediciones']
     })
 
-# Define un cliente Mongo
+# Define un cliente Mongo y se obtiene la base de datos y collecion
 mongoClient = pymongo.MongoClient('mongodb://mongodb:27017/')
 db = mongoClient.project
 collection = db.measurements

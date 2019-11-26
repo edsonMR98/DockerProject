@@ -8,19 +8,22 @@ import csv
 def on_log(client, userdata, level, buf):
     print("log: ",buf)
 
-# Establece conexion al broker MQTT, Subscribirse en el topico especificado
+# Establece conexion al broker MQTT, Subscribirse en el topico especificado (sensores2)
 def on_connect(client, userdata, flags, rc):
     #connected
     print("Conectado")
     client.subscribe(topic='sensores2', qos=2)
     
+# Se define y crea un cliente del broker MQTT 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_log = on_log
 client.connect('mqttserver', 1883)
 
+# Usa el archivo dataset.csv como csvFile
+# se lee el archivo csv y se reestructura para ser publicado en el broker mqtt
 with open('dataset.csv') as csvFile:
-    csvReader = csv.DictReader(csvFile) # Read csvFile and convert it to rows Dict
+    csvReader = csv.DictReader(csvFile) # Lee el archivo CSV y lo convierte en un Dict
     tempHour = ''
     for csvRow in csvReader:
         data = {}

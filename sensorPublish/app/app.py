@@ -2,20 +2,21 @@ import paho.mqtt.client as mqtt
 import json
 import time
 import datetime
+# importacion de las librerias necesarias
 
-           #local test
-mqtthost = '127.0.0.1' ##broker mqtt ip 
-mqttport = 1883 #default mqtt port
+           # prueba local
+mqtthost = '127.0.0.1' ## ip del broker mqtt
+mqttport = 1883 # puerto del broker (default)
 
-#test function to publish data in the topic "wsnJson"
-#In this space will be the function that receives data from the movil app and publish it in the wsnJson topic
+# test function para publicar datos en el topico "wsnJson"
+# en este espacio estará la funcion que reciba los datos de la app movil y publicara en el topico wsnJson
 def testFunction():
     for x in range(5):
         wsnData = '{"idSensor":"1525","mediciones":{"idParametro":55,"valor":"36"},"dateTime":"10/07/2019"}' #jsonPrueba
-        client.publish("wsnJson", wsnData) #wsnJson is the name of the topic where wsnData will be publish
+        client.publish("wsnJson", wsnData) # wsnJson es el nombre del topico donde wsnDatos será publicada
 
 
-#client status
+# estado del cliente
 def on_log(client, userdata, level, buf):
     print("log: ", buf)
 
