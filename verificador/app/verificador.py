@@ -3,7 +3,7 @@ import paho.mqtt.client as mqtt
 import json
 import sys
 import ast
-import criterios as c
+import criterios as c # Se importa el archivo criterios (./criterios.py) como c
 import datetime
 # Importar las librerias y scripts necesarios
 
@@ -26,7 +26,8 @@ def on_connect(client, userdata, flags, rc):
 
 # Recibe publicaciones del topico subscrito (sensores2)
 # Verifica el mensaje recibido del broker mqtt con la funcion verificar (criterios.py)
-# Inserta en base de datos de mongo
+# Se obtiene la fecha y hora y se reformatea para despues agregarlo a la coleccion
+# Inserccion en base de datos (project) de mongo, a la coleccion measurements
 def on_message(client, userdata, message):
     # varificar datos
     verificado = c.verificar(message.payload, rangos)
@@ -44,12 +45,12 @@ def on_message(client, userdata, message):
         "mediciones": verificado['mediciones']
     })
 
-# Define un cliente Mongo y se obtiene la base de datos y collecion
+# Define un cliente Mongo y se obtiene la base de datos y collecion, usando la libreria pymongo
 mongoClient = pymongo.MongoClient('mongodb://mongodb:27017/')
 db = mongoClient.project
 collection = db.measurements
 
-# Define un cliente MQTT
+# Define un cliente MQTT, usando la libreria mqtt
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message

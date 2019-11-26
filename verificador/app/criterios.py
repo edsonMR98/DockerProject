@@ -30,7 +30,7 @@ def banderaLimpieza(data, rangos):
     Compara el valor medido con los rangos establecidos en rangos.json.\n
     data: Mensaje\n
     rangos: Json usado para tomar las referencias de las mediciones"""
-    # Se obtiene el valor de la medicion, se verifica cual contaminante es para comparar con sus respectivos rangos para aplicar la bandera de limpieza correspondiente
+    # Se obtiene el valor de la medicion, se verifica cual contaminante es, para comparar con sus respectivos rangos, y aplicar la bandera de limpieza correspondiente
     for d in data["mediciones"]:        
         if (d["valor"] == "null") or (d["valor"] == "NULL") or (d["valor"] == "Null"):
             d["bLimpieza"] = "ND"
