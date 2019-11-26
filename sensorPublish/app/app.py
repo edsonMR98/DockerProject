@@ -20,6 +20,7 @@ def testFunction():
 def on_log(client, userdata, level, buf):
     print("log: ", buf)
 
+# se crea y define un cliente del broker mqtt, usando la libreria mqtt
 client = mqtt.Client()
 client.on_log = on_log
 client.connect(mqtthost, mqttport) 
