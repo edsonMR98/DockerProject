@@ -26,21 +26,23 @@ with open('dataset.csv') as csvFile:
     csvReader = csv.DictReader(csvFile) # Lee el archivo CSV y lo convierte en un Dict
     tempHour = ''
     for csvRow in csvReader:
-        data = {}
-        data['dateTime'] = csvRow['datetime']
-        data['idStation'] = csvRow['clave_estacion']
-        data['mediciones'] = []
-        parameters = ['RH','TMP','WDR','WSP','CO','NO','NO2','NOX','O3','PM10','PM2.5','PMCO','SO2']
+        data = {} # Se crea un dict vacio
+        data['dateTime'] = csvRow['datetime']   # Se crea la columna dateTime y se le agrega el valor que esta en el archivo CSV
+        data['idStation'] = csvRow['clave_estacion']    # Se crea la columna isStations y se le agrega el valor que esta en el archivo CSV
+        data['mediciones'] = [] # Se crea la columna mediciones vacia
+        parameters = ['RH','TMP','WDR','WSP','CO','NO','NO2','NOX','O3','PM10','PM2.5','PMCO','SO2'] # Se crea un list con los contaminantes
+        # Se recorre la list previamente creada y se agrega el contaminante con su valor al dict medicion
+        # para posteriormente irse agregando a la columna mediciones del dict data
         for param in parameters:
             medicion = {
                 "idParametro": param,
                 "valor": csvRow[param]
             }
             data['mediciones'].append(medicion)
-        data = json.dumps(data)
+        data = json.dumps(data) # El dict se convierte a un objeto JSON
         print(data)
         if (tempHour != csvRow['hora']):
             time.sleep(5)
             print('CHANGE HOUR')
-        client.publish('sensores2', data)
+        client.publish('sensores2', data) # El objeto JSON es publicado al topico sensores2
         tempHour = csvRow['hora']
