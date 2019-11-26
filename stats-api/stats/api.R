@@ -72,19 +72,19 @@ function(data, columns="all") {
 
 function(res, data, columns) {
 
-	#select variables
+	# Seleccion de variables
 	variables <- unlist(strsplit(columns, ','))
 	data <- select(data, variables)
 
-	#convert nulls to NA
+	# Conversion de null a NA
 	data[data == "Null"] = NA
 	data[data == "null"] = NA
 	data[data == ""] = NA
 
-	#convert to numeric
+	# Conversion a numeros
 	data <- as.data.frame(lapply(data, function(x) as.numeric(x)))
 	
-	#get covariance and variance
+	# Obtencion de varianza y covarianza
 	if (length(variables) > 2)
 		cova <- covarianceMatrix(data)
 	else
@@ -115,16 +115,16 @@ function(res, data, columns) {
 
 function(data, columns, method="pearson") {
 	
-	#select variables
+	# Seleccion de variables
 	variables <- unlist(strsplit(columns, ','))
 	data <- select(data, variables)
-	#convert nulls to NA
+	# Conversion de null a NA
 	data[data == "Null"] = NA
 	data[data == "null"] = NA
 	data[data == ""] = NA
-	#convert to numeric
+	# Conversion a numero
 	data <- as.data.frame(lapply(data, function(x) as.numeric(x)))
-	#get coefficients
+	# Obtencion de coeficientes
 	if (length(variables) > 2) {
 		cova <- covarianceMatrix(data)
 		cor <- correlationMatrix(data)
@@ -159,7 +159,7 @@ function(spec) {
 	myData <- iris
 	title <- "All Species"
 	
-	# Filter if the species was specified
+	# Filtrar si species fue especificado
 	if (!missing(spec)){
 		title <- paste0("Only the '", spec, "' Species")
 		myData <- subset(iris, Species == spec)

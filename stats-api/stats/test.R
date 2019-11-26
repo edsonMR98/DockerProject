@@ -2,7 +2,7 @@ source("stats.R")
 source("api.R")
 library('dplyr')
 
-#json format type: array of objects
+# tipo del formato del json: array de objetos
 json_data1 <- '[
     {"Date": "2016-12-06", "Radiation":0.23, "test":34, "Temperature": 0.7895, "Source": "GCAG"},
     {"Date": "2016-11-06", "Radiation":0.64, "test":30, "Temperature": 0.7504, "Source": "GCAG"},
@@ -14,7 +14,7 @@ json_data1 <- '[
     {"Date": "2016-03-06", "Radiation":0.89, "test":11, "Temperature": 1.3, "Source": "GISTEMP"}
 ]'
 
-#json format type: object by column
+# tipo del formato del json: objeto por columna
 json_data2 <- '{
     "Data": ["2016-12-06", "2016-11-06", "2016-10-06", "2016-05-06", "2016-04-06", "2016-04-06", "2016-03-06", "2016-03-06"],
     "Temperature": [0.7895, 0.7504, 0.7292, 0.93, 1.0733, 1.09, 1.2245, 1.3],
@@ -84,7 +84,7 @@ cdata <- cbind(data1=data1, data2=data1)
 
 numericdata <- select(data1, test, Temperature, Radiation)
 
-#describe(data1$Temperature)
+# describe(data1$Temperature)
 
 numericData <- select_if(data1, is.numeric)
 description <- apply(numericData, 2, describe)

@@ -3,7 +3,7 @@ library(jsonlite)
 
 
 objarrayToDataframe <- function(json) {
-    # Convert a JSON to dataframe object with format: array of objects
+    # Convierte un JSON a un objeto dataframe con formato: array de objetos
     # [{"col1": obs1, "col2": obs1, "..": ..}, {"col1": obs1, "col2": obs1, "..": ..}, {...}]
     # str -> dataframe
     data <- fromJSON(json, simplifyDataFrame=TRUE)
@@ -13,7 +13,7 @@ objarrayToDataframe <- function(json) {
 
 
 jsoncolToDataframe <- function(json) {
-    # Convert a JSON to dataframe object with format: object by column
+    # Convierte un JSON a un objeto dataframe con formato: objeto por columna
     # { "index":[1, 2, 3, ...], "column1": [obs1, obs2, obs3, ...], "column2": ...}
     # str -> dataframe
     data <- fromJSON(json, simplifyMatrix=TRUE)
@@ -29,7 +29,7 @@ getMode <- function(value) {
 
 
 describe <- function(column) {
-    # Return basic descriptive statistics
+    # Regresa estadisticas descriptivas basicas
     # list -> list
     description <- list(
         length= length(column),
@@ -53,25 +53,25 @@ describe <- function(column) {
 }
 
 covariance <- function(xvar, yvar) {
-    # Return covariance of two variables x and y
+    # Regresa la covarianza de dos variables x y y
     # list, list -> numeric
     cov(xvar, yvar, use="complete.obs")
 }
 
 covarianceMatrix <- function(variables) {
-    # Return a covariance matrix
+    # Regresa la covarianza de una matriz
     # matrix -> matrix
     as.data.frame(cov(variables, use="complete.obs"))
 }
 
 correlation <- function(xvar, yvar, method) {
-    # Return covariance of two variables x and y
+    # Regresa la correlacion de dos variables x y y
     # list, list -> numeric
     cor(xvar, yvar, method=method, use="complete.obs")
 }
 
 correlationMatrix <- function(variables, method) {
-    # Return a covariance matrix
+    # Regresa una covarianza de una matriz
     # matrix -> matrix
     as.data.frame(cor(variables, method=method, use="complete.obs"))
 }
