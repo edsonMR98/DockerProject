@@ -1,32 +1,32 @@
 # Stats
-Statistics API in R built with docker :whale:
+API para el cálculo de medidas de estadística descriptiva desarrollado en R y con docker :whale:
 
-## Build
+## Contrucción
 ```
 $ docker build . -t stats:v1
 ```
 
-## Run
+## Ejecución
 ```
 $ docker run -it --name stats_api -p 3030:8000 --rm --mount type=bind,source="$(pwd)"/stats,target=/usr/local/src/stats stats:v1 
 ```
 
-# API Reference
+# Referencia de la API
 
 ## Stats API
 ### http://localhost:3030/api/v1/
 
 ## Describe
 ### POST
-Get basic descriptive statistics from a dataset
+Obten las medidas descriptivas básicas de un conjunto de datos
 ```
 http://localhost:3030/api/v1/describe?columns=Temperatura
 ```
-#### Params
-| Parameter | Description                                            | Example                             |
+#### Parametros
+| Parametro | Descripción                                            | Ejemplo                             |
 |-----------|--------------------------------------------------------|-------------------------------------|
-| columns   | Define columns to get summaries, 'All' by default      | `?columns=Temperatura,C02,altitude` |
-#### Request
+| columns   | Define de cuales columnas obtener el resumen, 'Todas' por defecto      | `?columns=Temperatura,C02,altitude` |
+#### Objecto Request
 ```
 {
     "data": [
@@ -42,7 +42,7 @@ http://localhost:3030/api/v1/describe?columns=Temperatura
     ]
 }
 ```
-#### Response
+#### Objecto Response
 ```
 {
     "summary": {
@@ -70,16 +70,16 @@ http://localhost:3030/api/v1/describe?columns=Temperatura
 
 ## Correlation
 ### POST
-Get variance, standar deviation, covariance and correlation coefficient from a dataset
+Obtiene varianza, desviación estandar, covarianza y coeficiante de correlación de un conjunto de datos
 ```
 http://localhost:3030/api/v1/correlation?columns=test,Temperature
 ```
-#### Params
-| Parameter | Description                                            | Example                             |
+#### Parametros
+| Parametro | Descripción                                            | Ejemplo                             |
 |-----------|--------------------------------------------------------|-------------------------------------|
-| columns   | Define columns to get cor and cov, 'All' by default      | `?columns=test,Temperature` |
-| method   | Define the method to get correlation('pearson', 'kendall', 'spearman'), 'pearson' by default    | `?method=pearson` |
-#### Request
+| columns   | Define las columnas a obtener cor y cov, todas por defecto      | `?columns=test,Temperature` |
+| method   | Define el método para obtener la correlación ('pearson', 'kendall', 'spearman'), 'pearson' por defecto    | `?method=pearson` |
+#### Objeto Request
 ```
 {
     "data": [
@@ -94,7 +94,7 @@ http://localhost:3030/api/v1/correlation?columns=test,Temperature
     ]
 }
 ```
-#### Response
+#### Objeto Response
 ```
 {
   "correlation": {
@@ -114,7 +114,7 @@ http://localhost:3030/api/v1/correlation?columns=test,Temperature
   }
 }
 ```
-more than two columns return a matrix of correlations and covariances, Response of `http://localhost:3030/api/v1/correlation?columns=test,Radiation,Temperature`:
+Más de dos columnas regresa una matriz de correlación y covarianzas, Objeto Response de `http://localhost:3030/api/v1/correlation?columns=test,Radiation,Temperature`:
 ```
 ...
 "correlation": [
